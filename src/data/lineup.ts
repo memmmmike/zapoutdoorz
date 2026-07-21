@@ -1,10 +1,15 @@
 export type Category = "DJs" | "Live" | "Collectives";
 
-export interface Artist {
+export interface Act {
   name: string;
-  category: Category;
   soundcloud?: string;
   bandcamp?: string;
+}
+
+export interface Artist extends Act {
+  category: Category;
+  // Poster-style b2b billings: each member keeps their own streams.
+  members?: Act[];
 }
 
 // ZAP Campout 2026 lineup. Streaming links were verified against Resident
@@ -19,14 +24,18 @@ export const ARTISTS: Artist[] = [
   { name: "BLACK GREALISH", category: "DJs", soundcloud: "https://soundcloud.com/smiggins" },
   { name: "CHELLE", category: "DJs", soundcloud: "https://soundcloud.com/dj_chelle" },
   { name: "CHEF CARL", category: "DJs" },
-  { name: "CRASH COURSE", category: "DJs" },
   {
-    name: "GUM.MP3",
+    name: "CRASH COURSE: GUM.MP3 B2B SWAMI SOUND",
     category: "DJs",
-    soundcloud: "https://soundcloud.com/gum_mp3",
-    bandcamp: "https://gumstudio.bandcamp.com/",
+    members: [
+      {
+        name: "GUM.MP3",
+        soundcloud: "https://soundcloud.com/gum_mp3",
+        bandcamp: "https://gumstudio.bandcamp.com/",
+      },
+      { name: "SWAMI SOUND", soundcloud: "https://soundcloud.com/masutaswami" },
+    ],
   },
-  { name: "SWAMI SOUND", category: "DJs", soundcloud: "https://soundcloud.com/masutaswami" },
   { name: "DJ DIASPORA", category: "DJs" },
   { name: "ESHIE", category: "DJs", soundcloud: "https://soundcloud.com/eshied" },
   {
@@ -54,8 +63,14 @@ export const ARTISTS: Artist[] = [
     soundcloud: "https://soundcloud.com/thatjuana",
     bandcamp: "https://thatjuana.bandcamp.com/",
   },
-  { name: "KEENAN ORR", category: "DJs", soundcloud: "https://soundcloud.com/keenanorrdc" },
-  { name: "TOMMY C", category: "DJs", soundcloud: "https://soundcloud.com/tommycornelis" },
+  {
+    name: "KEENAN ORR B2B TOMMY C",
+    category: "DJs",
+    members: [
+      { name: "KEENAN ORR", soundcloud: "https://soundcloud.com/keenanorrdc" },
+      { name: "TOMMY C", soundcloud: "https://soundcloud.com/tommycornelis" },
+    ],
+  },
   { name: "LIVWUTANG", category: "DJs", soundcloud: "https://soundcloud.com/livwutang" },
   { name: "NATALIEPOPS", category: "DJs", soundcloud: "https://soundcloud.com/nataliepopss" },
   {

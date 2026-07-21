@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState, useEffect } from "react";
-import { ARTISTS, type Artist, type Category } from "@/data/lineup";
+import { ARTISTS, type Act, type Artist, type Category } from "@/data/lineup";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export const Route = createFileRoute("/")({
@@ -62,9 +62,7 @@ function LineupPage() {
         <ArtistGrid artists={visible} onSelect={setSelected} />
       </section>
       <Footer />
-      {selected && (
-        <ArtistModal artist={selected} onClose={() => setSelected(null)} />
-      )}
+      {selected && <ArtistModal artist={selected} onClose={() => setSelected(null)} />}
     </main>
   );
 }
@@ -103,9 +101,7 @@ function Hero() {
           <p className="font-mono text-xs sm:text-sm text-neon tracking-widest animate-pulse">
             [ENTER YEAR 4]
           </p>
-          <p className="mt-2 font-scrawl text-neon text-2xl sm:text-3xl -rotate-3">
-            outdoorz
-          </p>
+          <p className="mt-2 font-scrawl text-neon text-2xl sm:text-3xl -rotate-3">outdoorz</p>
         </div>
 
         <div className="space-y-2">
@@ -116,9 +112,7 @@ function Hero() {
             September
           </h2>
           <div className="flex items-end justify-between gap-4">
-            <p className="font-mono text-cream text-sm sm:text-base">
-              [ 4 — 6 ]
-            </p>
+            <p className="font-mono text-cream text-sm sm:text-base">[ 4 — 6 ]</p>
             <span
               className="text-outline-thick font-display text-6xl sm:text-8xl lg:text-9xl leading-none"
               style={{ letterSpacing: "0.02em" }}
@@ -143,17 +137,15 @@ function Hero() {
 function Intro() {
   return (
     <section className="relative px-4 sm:px-8 lg:px-16 py-20 sm:py-28 text-center">
-      <p className="font-mono text-neon text-xs tracking-widest mb-4">
-        [ THE LINEUP ]
-      </p>
+      <p className="font-mono text-neon text-xs tracking-widest mb-4">[ THE LINEUP ]</p>
       <h2 className="font-display text-cream text-5xl sm:text-7xl leading-tight max-w-3xl mx-auto -rotate-1">
         Year four. <span className="text-outline">Meet</span> the artists.
         <br />
         Press play.
       </h2>
       <p className="mt-6 max-w-xl mx-auto text-muted-foreground text-sm sm:text-base">
-        Forty acts across three days in the woods. Drop in, follow the sound,
-        find your set before you get there.
+        Forty acts across three days in the woods. Drop in, follow the sound, find your set before
+        you get there.
       </p>
     </section>
   );
@@ -210,18 +202,10 @@ function FilterBar({
   );
 }
 
-function ArtistGrid({
-  artists,
-  onSelect,
-}: {
-  artists: Artist[];
-  onSelect: (a: Artist) => void;
-}) {
+function ArtistGrid({ artists, onSelect }: { artists: Artist[]; onSelect: (a: Artist) => void }) {
   if (artists.length === 0) {
     return (
-      <p className="text-center font-mono text-muted-foreground py-20">
-        [ no artists match ]
-      </p>
+      <p className="text-center font-mono text-muted-foreground py-20">[ no artists match ]</p>
     );
   }
   return (
@@ -244,7 +228,10 @@ function ArtistCard({
   index: number;
   onSelect: (a: Artist) => void;
 }) {
-  const hasMedia = !!(artist.soundcloud || artist.bandcamp);
+  const acts = artist.members ?? [artist];
+  const hasSoundcloud = acts.some((a) => a.soundcloud);
+  const hasBandcamp = acts.some((a) => a.bandcamp);
+  const hasMedia = hasSoundcloud || hasBandcamp;
   const rotate = ((index % 5) - 2) * 0.35;
   return (
     <button
@@ -268,29 +255,16 @@ function ArtistCard({
         {artist.name}
       </h3>
       <div className="mt-4 flex gap-2 font-mono text-[10px] text-muted-foreground">
-        {artist.soundcloud && <span>SOUNDCLOUD</span>}
-        {artist.soundcloud && artist.bandcamp && <span>·</span>}
-        {artist.bandcamp && <span>BANDCAMP</span>}
+        {hasSoundcloud && <span>SOUNDCLOUD</span>}
+        {hasSoundcloud && hasBandcamp && <span>·</span>}
+        {hasBandcamp && <span>BANDCAMP</span>}
       </div>
     </button>
   );
 }
 
-function ArtistModal({
-  artist,
-  onClose,
-}: {
-  artist: Artist;
-  onClose: () => void;
-}) {
-  const scEmbed = artist.soundcloud
-    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(
-        artist.soundcloud,
-      )}&color=%23d6ff3a&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`
-    : null;
-  const bcEmbed = artist.bandcamp
-    ? `${artist.bandcamp.replace(/\/$/, "")}`
-    : null;
+function ArtistModal({ artist, onClose }: { artist: Artist; onClose: () => void }) {
+  const acts = artist.members ?? [artist];
 
   return (
     <div
@@ -318,73 +292,91 @@ function ArtistModal({
           {artist.name}
         </h2>
 
-        {scEmbed ? (
-          <div className="rounded-sm overflow-hidden border border-border mb-4">
-            <iframe
-              title={`${artist.name} on SoundCloud`}
-              width="100%"
-              height="360"
-              scrolling="no"
-              frameBorder="no"
-              allow="autoplay"
-              src={scEmbed}
-            />
+        {acts.map((act, i) => (
+          <div key={act.name} className="mb-6 last:mb-0">
+            {artist.members && (
+              <p className="font-mono text-xs tracking-widest text-cream mb-2">{act.name}</p>
+            )}
+            <ActMedia act={act} autoPlay={i === 0} />
           </div>
-        ) : bcEmbed ? (
-          <div className="rounded-sm border border-border p-6 text-center mb-4">
-            <p className="font-mono text-xs text-muted-foreground mb-3">
-              [ listen on bandcamp ]
-            </p>
-            <a
-              href={bcEmbed}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block font-mono text-sm bg-neon text-bark px-4 py-2 rounded-sm"
-            >
-              OPEN {artist.name} →
-            </a>
-          </div>
-        ) : (
-          <div className="rounded-sm border border-dashed border-border p-8 text-center mb-4">
-            <p className="font-mono text-xs text-muted-foreground">
-              [ no stream available yet — catch them at the campout ]
-            </p>
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-2 font-mono text-xs">
-          {artist.soundcloud && (
-            <a
-              href={artist.soundcloud}
-              target="_blank"
-              rel="noreferrer"
-              className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
-            >
-              SOUNDCLOUD ↗
-            </a>
-          )}
-          {artist.bandcamp && (
-            <a
-              href={artist.bandcamp}
-              target="_blank"
-              rel="noreferrer"
-              className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
-            >
-              BANDCAMP ↗
-            </a>
-          )}
-        </div>
+        ))}
       </div>
     </div>
+  );
+}
+
+function ActMedia({ act, autoPlay }: { act: Act; autoPlay: boolean }) {
+  const scEmbed = act.soundcloud
+    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(
+        act.soundcloud,
+      )}&color=%23d6ff3a&auto_play=${autoPlay}&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true`
+    : null;
+  const bcEmbed = act.bandcamp ? `${act.bandcamp.replace(/\/$/, "")}` : null;
+
+  return (
+    <>
+      {scEmbed ? (
+        <div className="rounded-sm overflow-hidden border border-border mb-4">
+          <iframe
+            title={`${act.name} on SoundCloud`}
+            width="100%"
+            height="360"
+            scrolling="no"
+            frameBorder="no"
+            allow="autoplay"
+            src={scEmbed}
+          />
+        </div>
+      ) : bcEmbed ? (
+        <div className="rounded-sm border border-border p-6 text-center mb-4">
+          <p className="font-mono text-xs text-muted-foreground mb-3">[ listen on bandcamp ]</p>
+          <a
+            href={bcEmbed}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block font-mono text-sm bg-neon text-bark px-4 py-2 rounded-sm"
+          >
+            OPEN {act.name} →
+          </a>
+        </div>
+      ) : (
+        <div className="rounded-sm border border-dashed border-border p-8 text-center mb-4">
+          <p className="font-mono text-xs text-muted-foreground">
+            [ no stream available yet — catch them at the campout ]
+          </p>
+        </div>
+      )}
+
+      <div className="flex flex-wrap gap-2 font-mono text-xs">
+        {act.soundcloud && (
+          <a
+            href={act.soundcloud}
+            target="_blank"
+            rel="noreferrer"
+            className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
+          >
+            SOUNDCLOUD ↗
+          </a>
+        )}
+        {act.bandcamp && (
+          <a
+            href={act.bandcamp}
+            target="_blank"
+            rel="noreferrer"
+            className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
+          >
+            BANDCAMP ↗
+          </a>
+        )}
+      </div>
+    </>
   );
 }
 
 function Footer() {
   return (
     <footer className="relative border-t border-border/40 px-4 sm:px-8 lg:px-16 py-12 text-center">
-      <p className="font-scrawl text-neon text-3xl sm:text-4xl -rotate-2">
-        see you in the woods
-      </p>
+      <p className="font-scrawl text-neon text-3xl sm:text-4xl -rotate-2">see you in the woods</p>
       <p className="font-mono text-xs text-muted-foreground mt-4">
         [ ZAP CAMPOUT · SEPTEMBER 4–6 · 2026 ]
       </p>
