@@ -144,8 +144,8 @@ function Intro() {
         Press play.
       </h2>
       <p className="mt-6 max-w-xl mx-auto text-muted-foreground text-sm sm:text-base">
-        Forty acts across three days in the woods. Drop in, follow the sound, find your set before
-        you get there.
+        40+ acts across three days in the woods. Drop in, follow the sound, find your set before you
+        get there.
       </p>
     </section>
   );
