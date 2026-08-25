@@ -23,10 +23,23 @@ export interface Artist extends Act {
 // every link below resolves and its profile name matches the billed name.
 // That round also cleared CHELLE (soundcloud "Chelle"), CRY and POLARVIEW,
 // and added seven acts the first pass missed.
+//
+// Sources, in order of authority: the promoter's own event listing on
+// promogogo.com, which ships JSON-LD carrying official per-artist links and
+// real names, then the RA announcement. Note that BOTH list music acts only —
+// neither bills NAOCO WOWSUGI, MORE CLOWNS, SLUG BEAT or SUBWOOFER DUO — so
+// neither is a complete lineup, and absence from them proves nothing.
+// The promoter's links are not automatically better than ours: its BABYPUFFF
+// ("pufffin_x3") and DJ DIASPORA ("dia_spora") handles both 404, its SDOT
+// link is a bare soundcloud.com/tracks, and its ROOST.WORLD Bandcamp is a
+// dead subdomain that serves the signup page. Every link was re-checked
+// against the live profile before being kept or replaced.
+//
 // Still medium-confidence — worth a final eyeball:
 //   SEAN CHAPPELL (common name; handle is a real "sean.chappell" but
-//   unconfirmed as this DJ), MIRA MIRA (an unrelated Melbourne duo shares
-//   the name; linked profile is the NYC/Pittsburgh one).
+//   unconfirmed as this DJ), JOYCE LIM (our handle "joyce-lim-2" is titled
+//   "Joyce Lim 3" and has 28 followers; the promoter instead points at her
+//   label, soundcloud.com/1432-r, which has 5k).
 export const ARTISTS: Artist[] = [
   // DJs
   { name: "BABYPUFFF", category: "DJs", soundcloud: "https://soundcloud.com/babypufff" },
@@ -45,7 +58,10 @@ export const ARTISTS: Artist[] = [
       { name: "SWAMI SOUND", soundcloud: "https://soundcloud.com/masutaswami" },
     ],
   },
-  { name: "DJ DIASPORA", category: "DJs" },
+  // Vanessa Beck. Chicago-raised, Baltimore-based, all-vinyl. The promoter's
+  // own event listing gives the handle as "dia_spora", which 404s; her
+  // Instagram bio has the live one, with a hyphen.
+  { name: "DJ DIASPORA", category: "DJs", soundcloud: "https://soundcloud.com/dia-spora" },
   { name: "ESHIE", category: "DJs", soundcloud: "https://soundcloud.com/eshied" },
   {
     name: "ETHER PLEASER",
@@ -93,7 +109,12 @@ export const ARTISTS: Artist[] = [
   },
   { name: "LIVWUTANG", category: "DJs", soundcloud: "https://soundcloud.com/livwutang" },
   { name: "MALZOF", category: "DJs", soundcloud: "https://soundcloud.com/malzof" },
-  { name: "MIRA MIRA", category: "DJs", soundcloud: "https://soundcloud.com/mirasamira" },
+  {
+    name: "MIRA MIRA",
+    category: "DJs",
+    soundcloud: "https://soundcloud.com/mirasamira",
+    bandcamp: "https://miramira.bandcamp.com/",
+  },
   { name: "NATALIEPOPS", category: "DJs", soundcloud: "https://soundcloud.com/nataliepopss" },
   {
     name: "RELAXER",
