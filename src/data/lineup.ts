@@ -75,7 +75,6 @@ export const ARTISTS: Artist[] = [
     bandcamp: "https://fabi0la.bandcamp.com/",
   },
   { name: "JACQ JILL", category: "DJs", soundcloud: "https://soundcloud.com/jacq-jill" },
-  { name: "JMAL", category: "DJs", soundcloud: "https://soundcloud.com/jmalinthemix" },
   {
     name: "JOYCE LIM",
     category: "DJs",
@@ -108,6 +107,12 @@ export const ARTISTS: Artist[] = [
     bandcamp: "https://kilbourne.bandcamp.com/",
   },
   { name: "LIVWUTANG", category: "DJs", soundcloud: "https://soundcloud.com/livwutang" },
+  // Jules Mallis. Formerly billed as JMAL, which this file used to carry as a
+  // separate act. Both the RA announcement and the promoter's event listing
+  // bill exactly one artist here, the promoter records JMAL as an alias of
+  // Malzof, and their Instagram handle is "jmal_malzof". The old
+  // soundcloud.com/jmalinthemix account still resolves but is stale: 3 tracks,
+  // untouched since 2025-11, and a different booking address.
   { name: "MALZOF", category: "DJs", soundcloud: "https://soundcloud.com/malzof" },
   {
     name: "MIRA MIRA",
