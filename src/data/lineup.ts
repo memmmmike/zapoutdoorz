@@ -159,7 +159,18 @@ export const ARTISTS: Artist[] = [
     soundcloud: "https://soundcloud.com/showmethebody",
     bandcamp: "https://showmethebody.bandcamp.com/",
   },
-  { name: "SPIRAL GENERATOR", category: "Live" },
+  // Six-person NYC crew. Confirmed via T.Wan's SoundCloud bio, which reads
+  // "1/6 of @spiralgenerator" and lists "9/4 - ZAP Outdoorz (w/ Spiral
+  // Generator) @ Camp Tall Timbers, WV". The site matches the booking address
+  // in that profile's own bio (hello@spiralgenerator.com).
+  // NOT linked: spiralgenerator.bandcamp.com is a different act — an empty
+  // placeholder page listed in Switzerland, no tie to this NYC crew.
+  {
+    name: "SPIRAL GENERATOR",
+    category: "Live",
+    soundcloud: "https://soundcloud.com/spiralgenerator",
+    website: "https://spiralgenerator.com/",
+  },
   { name: "SUBWOOFER DUO", category: "Live" },
   {
     name: "TONGUE DEPRESSOR",
