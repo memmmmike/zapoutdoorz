@@ -16,8 +16,14 @@ export interface Artist extends Act {
 // Advisor, Bandcamp, official sites, and label/press coverage (the festival
 // is rooted in the DC / Baltimore / Philly / NYC underground club + DIY scene).
 // Acts with no confirmed profile are left link-less and render as "TBA".
-// A few medium-confidence handles are noted inline — worth a final eyeball:
-//   CHELLE, SEAN CHAPPELL (common names), CRY, POLARVIEW.
+// Re-verified 2026-08-25 against the RA lineup announcement (ra.co/news/85754):
+// every link below resolves and its profile name matches the billed name.
+// That round also cleared CHELLE (soundcloud "Chelle"), CRY and POLARVIEW,
+// and added seven acts the first pass missed.
+// Still medium-confidence — worth a final eyeball:
+//   SEAN CHAPPELL (common name; handle is a real "sean.chappell" but
+//   unconfirmed as this DJ), MIRA MIRA (an unrelated Melbourne duo shares
+//   the name; linked profile is the NYC/Pittsburgh one).
 export const ARTISTS: Artist[] = [
   // DJs
   { name: "BABYPUFFF", category: "DJs", soundcloud: "https://soundcloud.com/babypufff" },
@@ -71,8 +77,27 @@ export const ARTISTS: Artist[] = [
       { name: "TOMMY C", soundcloud: "https://soundcloud.com/tommycornelis" },
     ],
   },
+  {
+    name: "KIERNAN LAVEAUX",
+    category: "DJs",
+    soundcloud: "https://soundcloud.com/kiernan-laveaux",
+  },
+  {
+    name: "KILBOURNE",
+    category: "DJs",
+    soundcloud: "https://soundcloud.com/kilbourne",
+    bandcamp: "https://kilbourne.bandcamp.com/",
+  },
   { name: "LIVWUTANG", category: "DJs", soundcloud: "https://soundcloud.com/livwutang" },
+  { name: "MALZOF", category: "DJs", soundcloud: "https://soundcloud.com/malzof" },
+  { name: "MIRA MIRA", category: "DJs", soundcloud: "https://soundcloud.com/mirasamira" },
   { name: "NATALIEPOPS", category: "DJs", soundcloud: "https://soundcloud.com/nataliepopss" },
+  {
+    name: "RELAXER",
+    category: "DJs",
+    soundcloud: "https://soundcloud.com/relaxerelaxer",
+    bandcamp: "https://relaxerelaxer.bandcamp.com/",
+  },
   {
     name: "SDOT",
     category: "DJs",
@@ -88,6 +113,7 @@ export const ARTISTS: Artist[] = [
   },
   { name: "SOLIDARE", category: "DJs", soundcloud: "https://soundcloud.com/solidare" },
   { name: "SUCCUBASS", category: "DJs", soundcloud: "https://soundcloud.com/succubass" },
+  { name: "T.WAN", category: "DJs", soundcloud: "https://soundcloud.com/tiffwanee" },
   { name: "ULTRA NATÉ", category: "DJs", soundcloud: "https://soundcloud.com/ultranatofficial" },
 
   // Live
@@ -108,6 +134,11 @@ export const ARTISTS: Artist[] = [
   { name: "MATMOS", category: "Live", bandcamp: "https://matmos.bandcamp.com/" },
   { name: "MORE CLOWNS", category: "Live" },
   { name: "NAOCO WOWSUGI", category: "Live" },
+  {
+    name: "PAMELA_ AND HER SONS",
+    category: "Live",
+    bandcamp: "https://pamelaandhersons.bandcamp.com/",
+  },
   { name: "POLARVIEW", category: "Live", bandcamp: "https://polarview.bandcamp.com/" },
   {
     name: "ROOST.WORLD",
