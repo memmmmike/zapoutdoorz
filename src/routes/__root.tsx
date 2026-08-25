@@ -67,9 +67,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -77,7 +75,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "ZAP Outdoorz 2026 — Lineup" },
       { name: "description", content: "Year 4. Meet the ZAP Campout 2026 lineup. Press play." },
       { property: "og:title", content: "ZAP Outdoorz 2026 — Lineup" },
-      { property: "og:description", content: "Year 4. Meet the ZAP Campout 2026 lineup. Press play." },
+      {
+        property: "og:description",
+        content: "Year 4. Meet the ZAP Campout 2026 lineup. Press play.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
