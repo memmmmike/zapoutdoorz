@@ -4,6 +4,8 @@ export interface Act {
   name: string;
   soundcloud?: string;
   bandcamp?: string;
+  // For billed acts with no streaming presence at all (e.g. visual artists).
+  website?: string;
 }
 
 export interface Artist extends Act {
@@ -15,7 +17,8 @@ export interface Artist extends Act {
 // ZAP Campout 2026 lineup. Streaming links were verified against Resident
 // Advisor, Bandcamp, official sites, and label/press coverage (the festival
 // is rooted in the DC / Baltimore / Philly / NYC underground club + DIY scene).
-// Acts with no confirmed profile are left link-less and render as "TBA".
+// Acts with no confirmed profile are left link-less and render as "TBA"; acts
+// that have a site but no streams carry `website` and render as "INFO".
 // Re-verified 2026-08-25 against the RA lineup announcement (ra.co/news/85754):
 // every link below resolves and its profile name matches the billed name.
 // That round also cleared CHELLE (soundcloud "Chelle"), CRY and POLARVIEW,
@@ -133,7 +136,10 @@ export const ARTISTS: Artist[] = [
   },
   { name: "MATMOS", category: "Live", bandcamp: "https://matmos.bandcamp.com/" },
   { name: "MORE CLOWNS", category: "Live" },
-  { name: "NAOCO WOWSUGI", category: "Live" },
+  // Community-engaged visual artist (American University), not a music act, so
+  // she has no SoundCloud/Bandcamp by design. Category is unverified: the RA
+  // announcement does not bill her, so "Live" is inherited from the poster.
+  { name: "NAOCO WOWSUGI", category: "Live", website: "https://www.wowsugi.com/" },
   {
     name: "PAMELA_ AND HER SONS",
     category: "Live",
