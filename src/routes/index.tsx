@@ -231,7 +231,13 @@ function ArtistCard({
   const acts = artist.members ?? [artist];
   const hasSoundcloud = acts.some((a) => a.soundcloud);
   const hasBandcamp = acts.some((a) => a.bandcamp);
+  const hasWebsite = acts.some((a) => a.website);
   const hasMedia = hasSoundcloud || hasBandcamp;
+  const tags = [
+    hasSoundcloud && "SOUNDCLOUD",
+    hasBandcamp && "BANDCAMP",
+    hasWebsite && "WEBSITE",
+  ].filter(Boolean);
   const rotate = ((index % 5) - 2) * 0.35;
   return (
     <button
@@ -245,20 +251,16 @@ function ArtistCard({
         </span>
         <span
           className={`font-mono text-[10px] tracking-widest ${
-            hasMedia ? "text-neon" : "text-muted-foreground"
+            hasMedia || hasWebsite ? "text-neon" : "text-muted-foreground"
           }`}
         >
-          {hasMedia ? "▶ PLAY" : "TBA"}
+          {hasMedia ? "▶ PLAY" : hasWebsite ? "↗ INFO" : "TBA"}
         </span>
       </div>
       <h3 className="font-display text-cream text-3xl sm:text-4xl leading-none group-hover:text-neon transition-colors">
         {artist.name}
       </h3>
-      <div className="mt-4 flex gap-2 font-mono text-[10px] text-muted-foreground">
-        {hasSoundcloud && <span>SOUNDCLOUD</span>}
-        {hasSoundcloud && hasBandcamp && <span>·</span>}
-        {hasBandcamp && <span>BANDCAMP</span>}
-      </div>
+      <div className="mt-4 font-mono text-[10px] text-muted-foreground">{tags.join(" · ")}</div>
     </button>
   );
 }
@@ -339,6 +341,20 @@ function ActMedia({ act, autoPlay }: { act: Act; autoPlay: boolean }) {
             OPEN {act.name} →
           </a>
         </div>
+      ) : act.website ? (
+        <div className="rounded-sm border border-border p-6 text-center mb-4">
+          <p className="font-mono text-xs text-muted-foreground mb-3">
+            [ no stream — visit their site ]
+          </p>
+          <a
+            href={act.website}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block font-mono text-sm bg-neon text-bark px-4 py-2 rounded-sm"
+          >
+            OPEN {act.name} →
+          </a>
+        </div>
       ) : (
         <div className="rounded-sm border border-dashed border-border p-8 text-center mb-4">
           <p className="font-mono text-xs text-muted-foreground">
@@ -366,6 +382,16 @@ function ActMedia({ act, autoPlay }: { act: Act; autoPlay: boolean }) {
             className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
           >
             BANDCAMP ↗
+          </a>
+        )}
+        {act.website && (
+          <a
+            href={act.website}
+            target="_blank"
+            rel="noreferrer"
+            className="text-neon border border-border hover:border-neon px-3 py-1.5 rounded-sm"
+          >
+            WEBSITE ↗
           </a>
         )}
       </div>
